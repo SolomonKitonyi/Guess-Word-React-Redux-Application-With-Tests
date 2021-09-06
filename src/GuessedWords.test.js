@@ -18,6 +18,19 @@ test("Does not throw warnings given expected props", () => {
   checkProps(GuessedWords, defaultProps);
 });
 
-describe("If there are no words Guessed", () => {});
+describe("if there are no words Guessed", () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = setup({ guessedWords: [] });
+  });
+  test("renders without error", () => {
+    const component = findByTestAttr(wrapper, "component-guessed-words");
+    expect(component.length).toBe(1);
+  });
+  test("renders instructions to guess a word", () => {
+    const instructions = findByTestAttr(wrapper, "guess-instructions");
+    expect(instructions.text().length).not.toBe(0);
+  });
+});
 
-describe("If there are words Guessed", () => {});
+describe("if there are words Guessed", () => {});
