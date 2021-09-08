@@ -17,14 +17,14 @@ const GuessedWords = (props) => {
     contents = (
       <div data-test="guessed-words">
         <h3>Guessed Words</h3>
-        <table>
-          <thead>
+        <table className="table table-sm">
+          <thead style={{ backgroundColor: "lightgrey" }}>
             <tr>
               <th>Guess</th>
               <th>Matching Letters</th>
             </tr>
-            <tbody>{guessedWordsRows}</tbody>
           </thead>
+          <tbody>{guessedWordsRows}</tbody>
         </table>
       </div>
     );
