@@ -3,12 +3,18 @@ import { connect } from 'react-redux';
 
 import { guessWord } from './actions';
 export class UnconnectedInput extends Component {
+	constructor(props) {
+		super(props);
+
+		this.inputBox = React.createRef();
+	}
 	render() {
 		const contents = this.props.success ? null : (
 			<form className="form-inline">
 				<input
 					data-test="input-box"
 					className="mb-2 mx-sm-3"
+					ref={this.inputBox}
 					id="guess-word"
 					type="text"
 					placeholder="enter guess"
