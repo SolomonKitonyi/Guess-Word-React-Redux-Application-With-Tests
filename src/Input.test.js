@@ -4,6 +4,7 @@ import { shallow } from 'enzyme';
 import { findByTestAttr, storeFactory } from '../test/testUtils';
 import Input, { UnconnectedInput } from './Input';
 import secretWord from './reducers/secretWordReducer';
+import { guessWord } from './actions';
 
 const setup = (initialState = {}) => {
 	const store = storeFactory(initialState);
@@ -73,6 +74,7 @@ describe('redux props', () => {
 describe('`guessWord` action creator call', () => {
 	let guessWordMock;
 	let wrapper;
+	const guessedWord = 'train';
 
 	beforeEach(() => {
 		//setup mock for `guessWord`
@@ -83,13 +85,19 @@ describe('`guessWord` action creator call', () => {
 		//set up wrapper Input with guessWordMock as guessWord prop
 		wrapper = shallow(<UnconnectedInput {...props} />);
 
+		//add value to input box
+		wrapper.instance().inputBox.current = { value: guessedWord };
 		//simulate click
 		const submitButton = findByTestAttr(wrapper, 'submit-button');
 		submitButton.simulate('click');
 	});
-	it('calls `guessWord` when button is clicked', () => {
+	test('calls `guessWord` when button is clicked', () => {
 		//check to see if mock ran
 		const guessWordCallCount = guessWordMock.mock.calls.length;
 		expect(guessWordCallCount).toBe(1);
+	});
+	test('calls `guessWord` with input value as argument', () => {
+		const guessedWordArg = guessWordMock.mock.calls[0][0];
+		expect(guessedWordArg).toBe(guessedWord);
 	});
 });
