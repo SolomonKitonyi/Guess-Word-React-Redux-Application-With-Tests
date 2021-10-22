@@ -89,7 +89,7 @@ describe('`guessWord` action creator call', () => {
 		wrapper.instance().inputBox.current = { value: guessedWord };
 		//simulate click
 		const submitButton = findByTestAttr(wrapper, 'submit-button');
-		submitButton.simulate('click');
+		submitButton.simulate('click', { preventDefault() {} });
 	});
 	test('calls `guessWord` when button is clicked', () => {
 		//check to see if mock ran
