@@ -71,19 +71,23 @@ describe('redux props', () => {
 });
 
 describe('`guessWord` action creator call', () => {
-	test('calls `guessWord` when button is clicked', () => {
-		const guessWordMock = jest.fn();
+	let guessWordMock;
+	let wrapper;
+
+	beforeEach(() => {
+		//setup mock for `guessWord`
+		guessWordMock = jest.fn();
 		const props = {
 			guessWord: guessWordMock,
 		};
-
 		//set up wrapper Input with guessWordMock as guessWord prop
-		const wrapper = shallow(<UnconnectedInput {...props} />);
+		wrapper = shallow(<UnconnectedInput {...props} />);
 
 		//simulate click
 		const submitButton = findByTestAttr(wrapper, 'submit-button');
 		submitButton.simulate('click');
-
+	});
+	it('calls `guessWord` when button is clicked', () => {
 		//check to see if mock ran
 		const guessWordCallCount = guessWordMock.mock.calls.length;
 		expect(guessWordCallCount).toBe(1);
